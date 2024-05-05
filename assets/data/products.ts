@@ -1,4 +1,4 @@
-const products = [
+const film = [
     {
         id:1,
         name:"肖生克的救赎",
@@ -57,4 +57,4 @@ const products = [
     }
 ]
 
-export default products
+export default film
