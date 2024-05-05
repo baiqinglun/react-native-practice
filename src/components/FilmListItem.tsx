@@ -1,13 +1,20 @@
 import Colors from '@/constants/Colors';
 import { StyleSheet ,Text,View,Image} from 'react-native';
+import {Film} from '@/types';
 
-const FilmListItem = ({film}) => {
-  console.log(film);
-  
+export const defaultFilmImage = 
+  "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p616779645.webp"
+
+// 重新整合进FilmItemProps
+type FilmItemProps = {
+  film : Film
+}
+
+const FilmListItem = ({film}:FilmItemProps) => {
   return (
     <>
       <View style={styles.container}>
-      <Image style={styles.img} source={{uri:film.img}}/>
+      <Image style={styles.img} source={{uri:film.img || defaultFilmImage}} resizeMode='contain'/>
       <Text style={styles.title}>{film.name}</Text>
       <Text style={styles.time}>上映时间:{film.time}</Text>
     </View>
@@ -21,7 +28,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor:"#fff",
     padding:10,
-    borderRadius:20
+    borderRadius:20,
+    flex:1,
+    maxWidth:'50%'
   },
   img:{
     width:'100%',
