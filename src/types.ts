@@ -7,3 +7,11 @@ export type Film = {
 }
 
 export type Rate = 'G' | 'Q' | 'B'
+
+export type CartItem = {
+    id:string;
+    film:Film;
+    film_id:number;
+    rate:Rate;
+    times:number;
+}

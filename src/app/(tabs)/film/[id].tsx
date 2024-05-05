@@ -3,22 +3,28 @@ import React, { useState } from 'react'
 import { Stack, useLocalSearchParams } from 'expo-router'
 import films from '@assets/data/films';
 import Colors from '@/constants/Colors';
+import { useCart } from '@/providers/CartProveider';
+import { Rate } from '@/types';
 
 const FilmDetailScreen = () => {
   const {id} = useLocalSearchParams();
-  
+  const {addItem} = useCart()
+ 
   const film = films.find((f)=>f.id.toString() === id);
-
+  
   if(!film){
     return (<Text>Film not found!</Text>)
   }
-
-  const rates = ['G' , 'Q' , 'B']
-
-  const [selectedRate,setSelectedRate] = useState('G')
+  
+  const rates:Rate[] = ['G' , 'Q' , 'B']
+  const [selectedRate,setSelectedRate] = useState<Rate>('G')
 
   const moveToView = () => {
-    console.warn("去观看")
+    if(!film){
+      return;
+    }
+
+    addItem(film,selectedRate)
   }
 
   return (
