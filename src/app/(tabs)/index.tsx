@@ -1,31 +1,39 @@
-import { StyleSheet } from 'react-native';
+import Colors from '@/constants/Colors';
+import { StyleSheet ,Text,View,Image} from 'react-native';
+import products from '../../../assets/data/products';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+const product = products[1]
 
 export default function TabOneScreen() {
   return (
+    <>
     <View style={styles.container}>
-      <Text style={styles.title}>sdadadada da</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <Image style={styles.img} source={{uri:product.img}}/>
+      <Text style={styles.title}>{product.name}</Text>
+      <Text style={styles.time}>上映时间:{product.time}</Text>
     </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor:"#fff",
+    padding:10,
+    borderRadius:20
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  img:{
+    width:'100%',
+    // 长宽比1，表示保持长宽比
+    aspectRatio:1
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  title:{
+    fontSize:20,
+    fontWeight:'bold',
+    marginVertical:10
   },
+  time:{
+    color:Colors.light.tint,
+    fontWeight:'bold'
+  }
 });
