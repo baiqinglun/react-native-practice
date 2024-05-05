@@ -1,4 +1,4 @@
-const film = [
+const films = [
     {
         id:1,
         name:"肖生克的救赎",
@@ -57,4 +57,4 @@ const film = [
     // }
 ]
 
-export default film
+export default films
