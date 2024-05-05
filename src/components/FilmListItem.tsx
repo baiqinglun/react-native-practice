@@ -1,6 +1,7 @@
 import Colors from '@/constants/Colors';
-import { StyleSheet ,Text,View,Image} from 'react-native';
+import { StyleSheet ,Text,Image, Pressable} from 'react-native';
 import {Film} from '@/types';
+import { Link } from 'expo-router';
 
 export const defaultFilmImage = 
   "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p616779645.webp"
@@ -13,11 +14,14 @@ type FilmItemProps = {
 const FilmListItem = ({film}:FilmItemProps) => {
   return (
     <>
-      <View style={styles.container}>
-      <Image style={styles.img} source={{uri:film.img || defaultFilmImage}} resizeMode='contain'/>
-      <Text style={styles.title}>{film.name}</Text>
-      <Text style={styles.time}>上映时间:{film.time}</Text>
-    </View>
+    {/* asChild 属性的作用可能是告诉 Link 组件将其包裹的内容作为子组件处理，而不是作为链接的文本内容。 */}
+    <Link href={`/film/${film.id}`} asChild> 
+        <Pressable style={styles.container}>
+        <Image style={styles.img} source={{uri:film.img || defaultFilmImage}} resizeMode='contain'/>
+        <Text style={styles.title}>{film.name}</Text>
+        <Text style={styles.time}>上映时间:{film.time}</Text>
+        </Pressable>
+      </Link>
     </>
   )
 }
