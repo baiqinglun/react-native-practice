@@ -622,3 +622,62 @@ const OrderListStack = () => {
 
 export default OrderListStack
 ```
+
+## 21、后端supabase
+
+安装
+
+```bash
+npm install @supabase/supabase-js
+npm install react-native-elements @react-native-async-storage/async-storage react-native-url-polyfill
+npx expo install expo-secure-store
+```
+
+lib配置文件
+
+```ts
+import 'react-native-url-polyfill/auto';
+import * as SecureStore from 'expo-secure-store';
+import { createClient } from '@supabase/supabase-js';
+
+const ExpoSecureStoreAdapter = {
+  getItem: (key: string) => {
+    return SecureStore.getItemAsync(key);
+  },
+  setItem: (key: string, value: string) => {
+    SecureStore.setItemAsync(key, value);
+  },
+  removeItem: (key: string) => {
+    SecureStore.deleteItemAsync(key);
+  },
+};
+
+const supabaseUrl = 'YOUR_REACT_NATIVE_SUPABASE_URL';
+const supabaseAnonKey = 'YOUR_REACT_NATIVE_SUPABASE_ANON_KEY';
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    storage: ExpoSecureStoreAdapter as any,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
+});
+```
+
+使用
+```tsx
+import { supabase } from '@/lib/supabase';
+
+const SignUpScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function signUpWithEmail() {
+    setLoading(true)
+    const res = await supabase.auth.signUp({email,password})
+    Alert.alert(res.error?res.error.message : "创建成功")
+    setLoading(false)
+  }
+```

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from '@/components/Button';
 import Colors from '@/constants/Colors';
 import { Link, Stack } from 'expo-router';
+import { supabase } from '@/lib/supabase';
 
 const SignUpScreen = () => {
   const [email, setEmail] = useState('');
@@ -10,8 +11,11 @@ const SignUpScreen = () => {
   const [loading, setLoading] = useState(false);
 
   async function signUpWithEmail() {
-    
-    setLoading(false);
+    setLoading(true)
+    const res = await supabase.auth.signUp({email,password})
+    // Alert.alert(error.message || "创建成功")
+    Alert.alert(res.error?res.error.message : "创建成功")
+    setLoading(false)
   }
 
   return (
