@@ -404,3 +404,12 @@ const addItem = (film:Film,rate:CartItem['rate']) => {
     // console.log(items)
 }
 ```
+
+## 10、累加
+
+累加函数`reduce`，需要返回值
+> 这里的初始值为0
+
+```tsx
+const totalPrice = items.reduce((sum,item) => (sum += item.film.price * item.times),0);
+```

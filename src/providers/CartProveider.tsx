@@ -3,15 +3,17 @@ import { CartItem ,Film} from '@/types'
 import * as Crypto from 'expo-crypto';
 
 type CartType = {
-    items:CartItem[],
-    addItem:(film:Film,rate:CartItem['rate']) => void,
-    updateTimes:(itemId:string,amount:-1 | 1) => void,
+    items:CartItem[];
+    addItem:(film:Film,rate:CartItem['rate']) => void;
+    updateTimes:(itemId:string,amount:-1 | 1) => void;
+    totalPrice:number;
   }
 
 const CartContext = createContext<CartType>({
     items:[],
     addItem:()=>{},
-    updateTimes:()=>{}
+    updateTimes:()=>{},
+    totalPrice:0
 })
 
 const CartProvider = ({children}:PropsWithChildren) => {
@@ -46,8 +48,11 @@ const CartProvider = ({children}:PropsWithChildren) => {
         setItems(updatedItems)
     }
 
+    // 总价
+    const totalPrice = items.reduce((sum,item) => (sum += item.film.price * item.times),0);
+
     return (
-        <CartContext.Provider value={{items,addItem,updateTimes}}>
+        <CartContext.Provider value={{items,addItem,updateTimes,totalPrice}}>
             {children}
         </CartContext.Provider>
     )

@@ -5,6 +5,7 @@ import films from '@assets/data/films';
 import Colors from '@/constants/Colors';
 import { useCart } from '@/providers/CartProveider';
 import { Rate } from '@/types';
+import Button from '@/components/Button'
 
 const FilmDetailScreen = () => {
   const {id} = useLocalSearchParams();
@@ -50,11 +51,7 @@ const FilmDetailScreen = () => {
             )
           )}
       </View>
-
-      <Pressable
-         onPress={()=>{moveToView()}} style={styles.moveToView}>
-        <Text style={styles.moveToViewBtn}>去观看</Text>
-      </Pressable>
+      <Button isBottom={true}  onPress={moveToView} text="去观影"></Button>
     </View>
     </>
   )
@@ -91,20 +88,6 @@ const styles = StyleSheet.create({
   rateText:{
     fontSize:20,
     fontWeight:'600'
-  },
-  moveToView:{
-    backgroundColor:Colors.light.tint,
-    width:'100%',
-    paddingVertical:15,
-    marginVertical:10,
-    borderRadius:50,
-    marginTop:'auto'
-  },
-  moveToViewBtn:{
-    textAlign:'center',
-    color:'white',
-    fontSize:15,
-    fontWeight:'bold'
   }
 })
 
