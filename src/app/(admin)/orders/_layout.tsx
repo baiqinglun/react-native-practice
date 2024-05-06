@@ -4,7 +4,10 @@ import { Stack } from 'expo-router'
 
 const OrdersLayout = () => {
   return (
-    <Stack></Stack>
+    <Stack>
+      {/* <Stack.Screen name='index' options={{title:'订单'}}></Stack.Screen> */}
+      <Stack.Screen name='list' options={{headerShown:false}}></Stack.Screen>
+    </Stack>
   )
 }
 

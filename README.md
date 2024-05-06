@@ -596,3 +596,29 @@ console.log(dayjs(created_at).fromNow())
 <Stack.Screen options={{title:"订单详情",headerTitleAlign:"center"}}></Stack.Screen>
 ```
 
+## 20、顶部Tab栏
+
+安装依赖
+```bash
+npm install @react-navigation/material-top-tabs react-native-tab-view
+
+npx expo install react-native-pager-view
+```
+
+使用
+```tsx
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { withLayoutContext } from 'expo-router';
+
+const TopTabs = withLayoutContext(createMaterialTopTabNavigator().Navigator);
+
+const OrderListStack = () => {
+  return (
+    <>
+      <TopTabs/>
+  </>
+  )
+}
+
+export default OrderListStack
+```

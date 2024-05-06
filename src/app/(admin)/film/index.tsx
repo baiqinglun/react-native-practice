@@ -11,6 +11,7 @@ export default function FilmListScreen() {
     <Stack.Screen
       options={{
         title:"电影栏",
+        headerTitleAlign:'center',
         headerRight: () => (
           <Link href="/(admin)/film/create" asChild>
             <Pressable>

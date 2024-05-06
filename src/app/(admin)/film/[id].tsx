@@ -34,6 +34,7 @@ const FilmDetailScreen = () => {
     <View style={styles.container}>
       <Stack.Screen  options={{
             title: `${film?.name}`,
+            headerTitleAlign:'center',
             headerRight: () => (
               <Link href={`/(admin)/film/create?id=${id}`} asChild>
                 <Pressable>

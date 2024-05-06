@@ -10,7 +10,7 @@ const IndexScreen = () => {
     <View>
       <Stack.Screen
         options={{
-          title: '排序',
+          title: '订单',
           headerTitleAlign:'center',
         }}
       />
