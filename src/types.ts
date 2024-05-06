@@ -4,6 +4,7 @@ export type Film = {
     img:string | null;
     description:string;
     time:number;
+    price:number;
 }
 
 export type Rate = 'G' | 'Q' | 'B'

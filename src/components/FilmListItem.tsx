@@ -2,9 +2,7 @@ import Colors from '@/constants/Colors';
 import { StyleSheet ,Text,Image, Pressable} from 'react-native';
 import {Film} from '@/types';
 import { Link } from 'expo-router';
-
-export const defaultFilmImage = 
-  "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p616779645.webp"
+import { defaultFilmImage } from '../constants/Images';
 
 // 重新整合进FilmItemProps
 type FilmItemProps = {
@@ -20,6 +18,7 @@ const FilmListItem = ({film}:FilmItemProps) => {
         <Image style={styles.img} source={{uri:film.img || defaultFilmImage}} resizeMode='contain'/>
         <Text style={styles.title}>{film.name}</Text>
         <Text style={styles.time}>上映时间:{film.time}</Text>
+        <Text style={styles.price}>价格:￥{film.price}</Text>
         </Pressable>
       </Link>
     </>
@@ -47,6 +46,10 @@ const styles = StyleSheet.create({
     marginVertical:10
   },
   time:{
+    color:Colors.light.text,
+    fontWeight:'bold'
+  },
+  price:{
     color:Colors.light.tint,
     fontWeight:'bold'
   }

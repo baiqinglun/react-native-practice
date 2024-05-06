@@ -269,5 +269,138 @@ export default FilmDetailScreen
     fontWeight:'bold'
   }
 ```
-
 > 使用`marginTop`将按钮置于屏幕底部
+
+## 7、全局属性useContext
+
+使用`useContext`定义全局属性，用于跨组件访问
+
+基本框架定义
+
+1. 创建`CartContext`并设置初始值
+2. 创建提供者填写`value`值并返回组件`<CartContext.Provider value={{items,addItem}}>{children}</CartContext.Provider>`
+3. 导出`useContext(CartContext)`方便跨组件使用，这样不需要再别的组件使用`useContext(CartContext)`获取
+
+```tsx
+import { PropsWithChildren, createContext, useContext, useState } from "react";
+import { CartItem ,Film} from '@/types'
+import * as Crypto from 'expo-crypto';
+
+type CartType = {
+    items:CartItem[],
+    addItem:(film:Film,rate:CartItem['rate']) => void,
+  }
+// 1. 创建`CartContext`并设置初始值
+const CartContext = createContext<CartType>({
+    items:[],
+    addItem:()=>{},
+})
+
+// 2. 
+const CartProvider = ({children}:PropsWithChildren) => {
+    const [items,setItems] = useState<CartItem[]>([])
+    
+    // 新增观看影片
+    const addItem = (film:Film,rate:CartItem['rate']) => {
+        const newCartItem:CartItem = {
+            id:Crypto.randomUUID(),
+            film,
+            film_id:film.id,
+            rate,
+            times:1
+        }
+        setItems([newCartItem,...items])
+    }
+
+    return (
+        <CartContext.Provider value={{items,addItem}}>
+            {children}
+        </CartContext.Provider>
+    )
+}
+
+export default CartProvider
+
+export const useCart = () => useContext(CartContext)
+```
+
+提供给其他组件使用
+```tsx
+// app/_layoout.tsx
+function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      +<CartProvider>
+      {/* 内部的即为children */}
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="cart" options={{ presentation: 'modal' }} />
+        </Stack>
+      +</CartProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+使用
+```tsx
+import { useCart } from '@/providers/CartProveider';
+
+const {addItem} = useCart()
+
+  const moveToView = () => {
+    if(!film){
+      return;
+    }
+
+    addItem(film,selectedRate)
+    router.push('/cart')
+  }
+```
+
+## 8、更新数量
+
+1. 这里的`map`需要有返回值，而`filter`不需要返回值
+2. 循环`items`，如果`item.id!== itemId`直接返回原本的`item`，等于则修改。
+3. 重新赋值`updatedItems`
+
+```tsx
+// 更新数量
+const updateTimes = (itemId:string,amount:-1 | 1) => {
+    // console.log(itemId,amount)
+    const updatedItems = items.map((item)=>{
+        return item.id !== itemId ? item : {...item,times:item.times+amount}
+    }).filter((item)=>item.times>0)
+    setItems(updatedItems)
+}
+```
+
+## 9、新增观看影片
+
+在新增之前进行判断，如果`film`信息和`rate`一致则不进行添加，而是修改后直接返回。
+
+> 一开始想着添加后进行查找修改，太麻烦了。
+
+```tsx
+// 新增观看影片
+const addItem = (film:Film,rate:CartItem['rate']) => {
+    const existCartItem = items.find((item)=>item.film === film && item.rate === rate)
+
+    if(existCartItem){
+        updateTimes(existCartItem.id,1)
+        return;
+    }
+
+    const newCartItem:CartItem = {
+        id:Crypto.randomUUID(),
+        film,
+        film_id:film.id,
+        rate,
+        times:1
+    }
+    setItems([newCartItem,...items])
+    // console.log(items)
+}
+```

@@ -1,6 +1,6 @@
-import { View, Text ,Image,StyleSheet, Pressable, Button} from 'react-native'
+import { View, Text ,Image,StyleSheet, Pressable} from 'react-native'
 import React, { useState } from 'react'
-import { Stack, useLocalSearchParams } from 'expo-router'
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import films from '@assets/data/films';
 import Colors from '@/constants/Colors';
 import { useCart } from '@/providers/CartProveider';
@@ -8,6 +8,7 @@ import { Rate } from '@/types';
 
 const FilmDetailScreen = () => {
   const {id} = useLocalSearchParams();
+  const router = useRouter()
   const {addItem} = useCart()
  
   const film = films.find((f)=>f.id.toString() === id);
@@ -25,6 +26,7 @@ const FilmDetailScreen = () => {
     }
 
     addItem(film,selectedRate)
+    router.push('/cart')
   }
 
   return (
