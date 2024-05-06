@@ -4,7 +4,7 @@ import { Redirect } from 'expo-router'
 
 const TabIndex = () => {
   return (
-    <Redirect href={'/film/'}></Redirect>
+    <Redirect href={'/(user)/film'}></Redirect>
   )
 }
 

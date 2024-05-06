@@ -26,7 +26,7 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}>
-      <Tabs.Screen name='one' options={{href:null}}></Tabs.Screen>
+      <Tabs.Screen name='index' options={{href:null}}></Tabs.Screen>
 
       <Tabs.Screen
         name="film"

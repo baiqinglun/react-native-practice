@@ -413,3 +413,35 @@ const addItem = (film:Film,rate:CartItem['rate']) => {
 ```tsx
 const totalPrice = items.reduce((sum,item) => (sum += item.film.price * item.times),0);
 ```
+
+## 11、代码文件结构
+
+1. `_layout.tsx`：总框架
+2. `index.tsx`：默认首页
+3. `[id].tsx`：传递`id`
+
+## 12、页面跳转
+
+```tsx
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Redirect } from 'expo-router'
+
+const TabIndex = () => {
+  return (
+    <Redirect href={'/(admin)/film'}></Redirect>
+  )
+}
+
+export default TabIndex
+```
+
+## 13、获取管线列表
+
+当前页面处于的管线位置
+
+```tsx
+const segments = useSegments()
+
+> ["(user)", "film"]
+```

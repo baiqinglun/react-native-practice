@@ -1,7 +1,7 @@
 import Colors from '@/constants/Colors';
 import { StyleSheet ,Text,Image, Pressable} from 'react-native';
 import {Film} from '@/types';
-import { Link } from 'expo-router';
+import { Link, useSegments } from 'expo-router';
 import { defaultFilmImage } from '../constants/Images';
 
 // 重新整合进FilmItemProps
@@ -10,10 +10,12 @@ type FilmItemProps = {
 }
 
 const FilmListItem = ({film}:FilmItemProps) => {
+  const segments = useSegments()
+
   return (
     <>
     {/* asChild 属性的作用可能是告诉 Link 组件将其包裹的内容作为子组件处理，而不是作为链接的文本内容。 */}
-    <Link href={`/film/${film.id}`} asChild> 
+    <Link href={`/${segments[0]}/film/${film.id}`} asChild> 
         <Pressable style={styles.container}>
         <Image style={styles.img} source={{uri:film.img || defaultFilmImage}} resizeMode='contain'/>
         <Text style={styles.title}>{film.name}</Text>
