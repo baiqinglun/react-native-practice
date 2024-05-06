@@ -559,3 +559,11 @@ const [image, setImage] = useState(null);
 ```tsx
 <Stack.Screen options={{title:isUpdating?"编辑":"创建",headerTitleAlign:'center'}}></Stack.Screen>
 ```
+
+## 17、转换为bool进行判断
+
+使用双`!`，第一个`!`表示转化为boll并取反，第二个`!`表示取反，两个`!!`叠加表示转换为bool
+
+```tsx
+const isUpdating = !!id
+```

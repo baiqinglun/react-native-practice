@@ -5,8 +5,7 @@ import films from '@assets/data/films';
 import Colors from '@/constants/Colors';
 import { useCart } from '@/providers/CartProveider';
 import { Rate } from '@/types';
-import Button from '@/components/Button'
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { FontAwesome } from '@expo/vector-icons';
 
 const FilmDetailScreen = () => {
   const {id} = useLocalSearchParams();
@@ -32,17 +31,31 @@ const FilmDetailScreen = () => {
   }
 
   return (
-    <>
-      <View style={styles.container}>
-      <Stack.Screen options={{title:`${film?.name}`}}></Stack.Screen>
-
+    <View style={styles.container}>
+      <Stack.Screen  options={{
+            title: `${film?.name}`,
+            headerRight: () => (
+              <Link href={`/(admin)/film/create?id=${id}`} asChild>
+                <Pressable>
+                  {({ pressed }) => (
+                    <FontAwesome
+                      name="pencil"
+                      size={25}
+                      color={Colors.light.tint}
+                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                    />
+                  )}
+                </Pressable>
+              </Link>
+            ),
+          }}/>
+      
       <Image style={styles.img} source={{uri:film?.img}}></Image>
       <Text style={styles.name}>{film?.name}</Text>
       <Text style={styles.description}>{film?.description}</Text>
       
       <Text style={styles.price}>价格：￥{film?.price}</Text>
     </View>
-    </>
   )
 }
 

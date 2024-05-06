@@ -1,10 +1,30 @@
-import { FlatList, View} from 'react-native';
+import { FlatList, View, Pressable} from 'react-native';
 import FilmListItem from '@/components/FilmListItem';
 import films from '@assets/data/films';
+import { Link, Stack} from 'expo-router';
+import Colors from '@/constants/Colors';
+import {Ionicons} from '@expo/vector-icons';
 
 export default function FilmListScreen() {
   return (
     <>
+    <Stack.Screen
+      options={{
+        title:"电影栏",
+        headerRight: () => (
+          <Link href="/(admin)/film/create" asChild>
+            <Pressable>
+              {({ pressed }) => (
+                <Ionicons
+                  name="add-circle-outline"
+                  size={25}
+                  style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  color={Colors.light.tint}
+                />
+              )}
+            </Pressable>
+          </Link>)
+      }}/>
       {
         <FlatList data={films}
         renderItem={({item})=><FilmListItem film={item}></FilmListItem>}

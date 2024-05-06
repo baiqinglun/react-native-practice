@@ -12,9 +12,10 @@ const CreateItem = () => {
     const [error,setError] = useState('')
     const [image, setImage] = useState<string | null>(null);
 
-    const id = useLocalSearchParams()
+    // useLocalSearchParams获取本地的URL参数，这里要解析一下
+    const {id} = useLocalSearchParams()
     const isUpdating = !!id
-
+    
     // 选择图片
     const pickImage = async () => {
       // No permissions request is necessary for launching the image library
@@ -24,8 +25,6 @@ const CreateItem = () => {
         aspect: [4, 3],
         quality: 1,
       });
-  
-      console.log(result);
   
       if (!result.canceled) {
         setImage(result.assets[0].uri);
