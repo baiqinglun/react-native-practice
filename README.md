@@ -547,3 +547,15 @@ const [image, setImage] = useState(null);
     </View>
   );
 ```
+
+## 16、二元和三元表达式
+
+二元表达式
+```tsx
+{image && <Image source={{ uri: image }} style={styles.image} />}
+```
+
+三元表达式
+```tsx
+<Stack.Screen options={{title:isUpdating?"编辑":"创建",headerTitleAlign:'center'}}></Stack.Screen>
+```

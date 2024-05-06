@@ -1,16 +1,19 @@
-import { View, Text, StyleSheet, Image, TextInput} from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, Alert} from 'react-native'
 import React, { useState } from 'react'
 import { defaultFilmImage } from '@/constants/Images'
 import Colors from '@/constants/Colors'
 import Button from '@/components/Button'
 import * as ImagePicker from 'expo-image-picker';
-import { Stack } from 'expo-router'
+import { Stack, useLocalSearchParams } from 'expo-router'
 
 const CreateItem = () => {
     const [name,setName] = useState('')
     const [price,setPrice] = useState('')
     const [error,setError] = useState('')
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState<string | null>(null);
+
+    const id = useLocalSearchParams()
+    const isUpdating = !!id
 
     // 选择图片
     const pickImage = async () => {
@@ -35,12 +38,42 @@ const CreateItem = () => {
         setPrice("")
     }
 
+    // 提交
+    const submit = () => {
+        isUpdating ? update() : create()
+    }
+
+    // 更新
+    const update = () => {
+        if(!validateInput()){
+            return;
+        }
+    }
+
     // 创建
     const create = () => {
         if(!validateInput()){
             return;
         }
         resetFields()
+    }
+
+    // 删除
+    const onDelete = () => {
+        Alert.alert("已经删除")
+    }
+
+    const confirmDelete = () => {
+        Alert.alert('确认',"是否删除",[
+            {
+                text:'取消'
+            },
+            {
+                text:'确定',
+                style:'destructive',
+                onPress:onDelete,
+            }
+        ])
     }
 
     // 权限验证
@@ -67,7 +100,7 @@ const CreateItem = () => {
 
   return (
     <View style={styles.container}>
-        <Stack.Screen options={{title:"创建",headerTitleAlign:'center'}}></Stack.Screen>
+        <Stack.Screen options={{title:isUpdating?"编辑":"创建",headerTitleAlign:'center'}}></Stack.Screen>
         <Image style={styles.img} source={{uri:image || defaultFilmImage}}/>
         <Text onPress={pickImage} style={styles.selectText}>选择图片</Text>
 
@@ -79,7 +112,8 @@ const CreateItem = () => {
 
         <Text style={styles.error}>{error}</Text>
 
-      <Button text='创建' onPress={()=>{create()}}></Button>
+      <Button text={isUpdating?'更新':'创建'} onPress={()=>{submit()}}></Button>
+      {isUpdating && (<Text onPress={confirmDelete} style={styles.delete}>删除</Text>)}
     </View>
   )
 }
@@ -116,6 +150,11 @@ const styles = StyleSheet.create({
     },
     error:{
         color:'red'
+    },
+    delete:{
+        color:Colors.light.tint,
+        fontWeight:'500',
+        alignSelf:'center'
     }
 })
 

@@ -51,7 +51,7 @@ const FilmDetailScreen = () => {
             )
           )}
       </View>
-      <Button isBottom={true}  onPress={moveToView} text="去观影"></Button>
+      <Button onPress={moveToView} text="去观影"></Button>
     </View>
     </>
   )

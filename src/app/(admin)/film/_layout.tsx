@@ -1,10 +1,12 @@
 import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Link, Stack} from 'expo-router';
+import { Link, Stack, useLocalSearchParams} from 'expo-router';
 import { Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 
 const FilmStack = () => {
+  const {id} = useLocalSearchParams();
+
   return (
     // 单独配置页面右上角图标
     <Stack>
@@ -32,20 +34,21 @@ const FilmStack = () => {
         <Stack.Screen
           name='[id]'
           options={{
-            headerRight: () => (
-              <Link href="/cart" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <Ionicons
-                      name="pencil"
-                      size={25}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                      color={Colors.light.tint}
-                    />
-                  )}
-                </Pressable>
-              </Link>
-            )}}></Stack.Screen>
+              headerRight: () => (
+                <Link href={`/(admin)/film/create?id=${id}`} asChild>
+                  <Pressable>
+                    {({ pressed }) => (
+                      <Ionicons
+                        name="pencil"
+                        size={25}
+                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                        color={Colors.light.tint}
+                      />
+                    )}
+                  </Pressable>
+                </Link>
+              )}}
+          ></Stack.Screen>
     </Stack>
   )
 }
