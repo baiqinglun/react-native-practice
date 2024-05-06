@@ -445,3 +445,105 @@ const segments = useSegments()
 
 > ["(user)", "film"]
 ```
+
+## 14、Stack右上角图标
+
+统一配置
+
+```tsx
+<Stack screenOptions={{
+        headerRight: () => (
+          <Link href="/cart" asChild>
+            <Pressable>
+              {({ pressed }) => (
+                <AntDesign
+                  name="clockcircle"
+                  size={25}
+                  style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                />
+              )}
+            </Pressable>
+          </Link>
+        ),
+      }}>
+        <Stack.Screen
+          name='index'
+          options={{title:"电影栏"}}></Stack.Screen>
+    </Stack>
+```
+
+单独配置
+```tsx
+// 单独配置页面右上角图标
+<Stack>
+    {/*电影栏页面  */}
+    <Stack.Screen
+      name='index'
+      options={{
+        headerRight: () => (
+          <Link href="/cart" asChild>
+            <Pressable>
+              {({ pressed }) => (
+                <Ionicons
+                  name="add-circle-outline"
+                  size={25}
+                  style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  color={Colors.light.tint}
+                />
+              )}
+            </Pressable>
+          </Link>),
+        title:"电影栏"
+      }}></Stack.Screen>
+
+    {/* 每个电影的内容页面 */}
+    <Stack.Screen
+      name='[id]'
+      options={{
+        headerRight: () => (
+          <Link href="/cart" asChild>
+            <Pressable>
+              {({ pressed }) => (
+                <Ionicons
+                  name="pencil"
+                  size={25}
+                  style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  color={Colors.light.tint}
+                />
+              )}
+            </Pressable>
+          </Link>
+        )}}></Stack.Screen>
+</Stack>
+```
+
+## 15、图片选择
+
+![网址](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
+
+```tsx
+const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Button title="Pick an image from camera roll" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+    </View>
+  );
+```

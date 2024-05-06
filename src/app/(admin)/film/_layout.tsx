@@ -13,7 +13,7 @@ const FilmStack = () => {
           name='index'
           options={{
             headerRight: () => (
-              <Link href="/cart" asChild>
+              <Link href="/(admin)/film/create" asChild>
                 <Pressable>
                   {({ pressed }) => (
                     <Ionicons
