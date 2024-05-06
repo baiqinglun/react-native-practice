@@ -1,10 +1,12 @@
 import { FlatList, View} from 'react-native';
 import FilmListItem from '@/components/FilmListItem';
 import films from '@assets/data/films';
+import { Stack } from 'expo-router'
 
 export default function FilmListScreen() {
   return (
     <>
+    <Stack.Screen options={{headerTitleAlign:'center',}}/>
       {
         <FlatList data={films}
         renderItem={({item})=><FilmListItem film={item}></FilmListItem>}

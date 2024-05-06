@@ -567,3 +567,32 @@ const [image, setImage] = useState(null);
 ```tsx
 const isUpdating = !!id
 ```
+
+## 18、dayjs简单使用
+
+生成时间
+
+```tsx
+import dayjs from 'dayjs';
+
+const now = dayjs();
+
+created_at = now.subtract(1, 'hour').toISOString()
+```
+
+计算开始到现在的天数
+
+```tsx
+import dayjs from 'dayjs';
+
+dayjs.extend(relativeTime);
+
+console.log(dayjs(created_at).fromNow())
+```
+
+## 19、Stack居中
+
+```tsx
+<Stack.Screen options={{title:"订单详情",headerTitleAlign:"center"}}></Stack.Screen>
+```
+

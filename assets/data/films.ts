@@ -55,13 +55,22 @@ const films = [
         img:"https://i.mji.rip/2024/05/06/a058cef91c1835f9f16baad43aad2a0a.webp",
         price:35
     },
-    // {
-    //     id:8,
-    //     name:"星际穿越",
-    //     description:"爱是一种力量，让我们超越时空感知它的存在。",
-    //     time:2014,
-    //     img:"https://i.mji.rip/2024/05/06/e16e77befb1351bc835f457c158a29fb.webp"
-    // }
+    {
+        id:8,
+        name:"星际穿越",
+        description:"爱是一种力量，让我们超越时空感知它的存在。",
+        time:2014,
+        img:"https://i.mji.rip/2024/05/06/e16e77befb1351bc835f457c158a29fb.webp",
+        price:35
+    },
+    {
+        id:9,
+        name:"星际穿越",
+        description:"爱是一种力量，让我们超越时空感知它的存在。",
+        time:2014,
+        img:"https://i.mji.rip/2024/05/06/e16e77befb1351bc835f457c158a29fb.webp",
+        price:35
+    }
 ]
 
 export default films

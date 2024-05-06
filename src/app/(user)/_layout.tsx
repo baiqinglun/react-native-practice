@@ -37,11 +37,13 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen
-        name="two"
+    <Tabs.Screen
+        name="orders"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: '排序',
+          headerShown:false,
+          headerTitleAlign:'center',
+          tabBarIcon: ({ color }) => <TabBarIcon name="tag" color={color} />,
         }}
       />
 

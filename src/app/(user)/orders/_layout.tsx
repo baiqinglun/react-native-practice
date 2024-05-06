@@ -2,11 +2,10 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { Stack } from 'expo-router'
 
-const AuthStack = () => {
+const OrdersLayout = () => {
   return (
-    // 单独配置页面右上角图标
-    <Stack/>
+    <Stack></Stack>
   )
 }
 
-export default AuthStack
+export default OrdersLayout
