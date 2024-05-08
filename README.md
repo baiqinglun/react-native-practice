@@ -584,6 +584,7 @@ created_at = now.subtract(1, 'hour').toISOString()
 
 ```tsx
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
 
